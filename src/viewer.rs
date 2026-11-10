@@ -263,7 +263,13 @@ impl PdfView {
                 let imp = view.imp();
                 let fit = imp.state.borrow().zoom == Zoom::FitWidth;
                 if fit && (width - imp.last_fit_width.get()).abs() >= 1.0 {
-                    view.relayout(true);
+                    // Resizing pages while GTK is still allocating can leave
+                    // the old width in place, so wait for the next idle.
+                    glib::idle_add_local_once(glib::clone!(
+                        #[weak]
+                        view,
+                        move || view.relayout(true)
+                    ));
                 }
             }
         ));
