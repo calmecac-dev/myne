@@ -1,18 +1,20 @@
-// Myne: ventana principal.
-// Requiere libadwaita >= 1.5 y GtkSourceView 5.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Myne: main window.
+// Requires libadwaita >= 1.5 and GtkSourceView 5.
 //
-// Acciones que debe registrar la ventana (prefijo "win."):
-//   open, save, zoom-in, zoom-out, zoom-fit, prev-page, next-page,
-//   clear-log, hide-log, open-log (acciones simples)
-//   show-log (acción con estado booleano; alimenta el botón de estado y el Revealer)
-// Acciones de la aplicación (prefijo "app."): preferences, help, about
-// Atajos sugeridos: win.open Ctrl+O, win.save Ctrl+S, win.show-log Ctrl+Mayús+L,
-//   win.zoom-in Ctrl++, win.zoom-out Ctrl+-, win.zoom-fit Ctrl+0,
-//   app.preferences Ctrl+, , win.show-help-overlay Ctrl+?
+// Actions the window must register ("win." prefix):
+//   open, save, save-as, compile, zoom-in, zoom-out, zoom-fit, prev-page,
+//   next-page, clear-log, hide-log, open-log (simple actions)
+//   show-log (boolean stateful action; drives the status button and the Revealer)
+// Application actions ("app." prefix): preferences, help, about, quit
+// Shortcuts: win.open Ctrl+O, win.save Ctrl+S, win.save-as Ctrl+Shift+S,
+//   win.compile F5, win.show-log Ctrl+Shift+L, win.zoom-in Ctrl++,
+//   win.zoom-out Ctrl+-, win.zoom-fit Ctrl+0, app.preferences Ctrl+, ,
+//   win.show-help-overlay Ctrl+?, app.quit Ctrl+Q
 //
-// Estado de la compilación: poner status_stack.visible-child-name en
-//   "busy" | "ok" | "warning" | "error", status_count.label con el número de
-//   avisos y banner.revealed = true solo si falla la compilación.
+// Compilation status: set status_stack.visible-child-name to
+//   "busy" | "ok" | "warning" | "error", status_count.label to the number of
+//   warnings, and banner.revealed = true only when the compilation fails.
 using Gtk 4.0;
 using Adw 1;
 using GtkSource 5;
@@ -48,7 +50,7 @@ template $MyneWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 480;
 
-  // En ventanas estrechas el editor y el visor se apilan.
+  // In narrow windows the editor and the viewer are stacked.
   Adw.Breakpoint {
     condition ("max-width: 780sp")
 
@@ -84,11 +86,11 @@ template $MyneWindow: Adw.ApplicationWindow {
 
       [title]
       Adw.WindowTitle window_title {
-        title: "Informe_Tecnico.mom";
-        subtitle: "~/Documentos/Informes";
+        title: "document.mom";
+        subtitle: "~/Documents";
       }
 
-      // El primer [end] queda en el extremo derecho.
+      // The first [end] child sits at the far right.
       [end]
       MenuButton primary_menu_button {
         icon-name: "open-menu-symbolic";
@@ -101,7 +103,7 @@ template $MyneWindow: Adw.ApplicationWindow {
         }
       }
 
-      // Estado de la compilación; también muestra y oculta el registro.
+      // Compilation status; also shows and hides the log.
       [end]
       ToggleButton log_button {
         action-name: "win.show-log";
@@ -114,7 +116,7 @@ template $MyneWindow: Adw.ApplicationWindow {
         child: Box {
           spacing: 6;
 
-          // La primera página es la visible por defecto.
+          // The first page is the one visible by default.
           Stack status_stack {
             StackPage {
               name: "ok";
@@ -200,7 +202,7 @@ template $MyneWindow: Adw.ApplicationWindow {
           }
         };
 
-        // Visor del PDF
+        // PDF viewer
         end-child: Overlay {
           child: Box {
             orientation: vertical;
@@ -217,12 +219,12 @@ template $MyneWindow: Adw.ApplicationWindow {
               vexpand: true;
               hexpand: true;
 
-              // Widget propio: dibuja las páginas del PDF.
+              // Custom widget: draws the pages of the PDF.
               child: $MynePdfView pdf_view {};
             }
           };
 
-          // Controles de zoom y de página, flotando sobre el visor.
+          // Zoom and page controls, floating over the viewer.
           [overlay]
           Box {
             halign: center;
@@ -303,7 +305,7 @@ template $MyneWindow: Adw.ApplicationWindow {
         };
       }
 
-      // Registro de compilación: oculto por defecto.
+      // Compilation log: hidden by default.
       Revealer log_revealer {
         reveal-child: bind log_button.active;
         transition-type: slide_up;
@@ -355,7 +357,7 @@ template $MyneWindow: Adw.ApplicationWindow {
           ScrolledWindow {
             min-content-height: 160;
 
-            // Una fila por mensaje de groff (Adw.ActionRow creada desde Rust).
+            // One row per groff message (Adw.ActionRow created from Rust).
             child: ListBox log_list {
               selection-mode: none;
             };
