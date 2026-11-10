@@ -41,6 +41,24 @@ distribution; Myne does not bundle it.
 
 ---
 
+## The name and the icon
+
+Myne is named after the protagonist of *Ascendance of a Bookworm*, Miya
+Kazuki's light novel series: a girl reborn in a world where books are a luxury
+few can afford, who sets out to make them herself, from the paper up. An
+editor for typesetting documents seemed a fitting place for her name.
+
+The icon is a [shumil](https://ascendance-of-a-bookworm.fandom.com/wiki/Shumil),
+a small, rabbit-like feybeast from the forests of Ehrenfest in the same novels.
+Shumils are most often dark blue with golden eyes, and that is why Sylvester
+compares Myne to one: she has the same colors, and he makes her chirp "pooey",
+a shumil's cry. In the icon, a blue shumil sits on a sheet of ruled paper.
+
+The icon is an original drawing, not art from the series. *Ascendance of a
+Bookworm* and its characters belong to their authors.
+
+---
+
 ## Features
 
 - Compiles with `pdfmom` on every save, or on demand with `F5`, without ever
