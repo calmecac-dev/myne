@@ -7,6 +7,7 @@
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
     <file>style.css</file>
     <file alias="icons/scalable/actions/myne-save-symbolic.svg">icons/hicolor/scalable/actions/myne-save-symbolic.svg</file>
+    <file alias="icons/scalable/actions/myne-open-symbolic.svg">icons/hicolor/scalable/actions/myne-open-symbolic.svg</file>
     <file alias="icons/scalable/apps/dev.calmecac.Myne.svg">icons/hicolor/scalable/apps/dev.calmecac.Myne.svg</file>
   </gresource>
 </gresources>
