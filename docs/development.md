@@ -8,6 +8,12 @@ Debian, Ubuntu:
 sudo apt install libgtk-4-dev libadwaita-1-dev libgtksourceview-5-dev libpoppler-glib-dev blueprint-compiler groff
 ```
 
+Fedora:
+
+```bash
+sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel poppler-glib-devel blueprint-compiler groff
+```
+
 ```bash
 cargo build
 ```

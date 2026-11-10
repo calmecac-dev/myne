@@ -17,7 +17,7 @@ left, read the PDF on the right; every save compiles it.
 
 > [!NOTE]
 > Early development: there are no releases or packages yet. Myne builds from
-> source and has only been tested on Ubuntu 24.04. The interface is in Spanish.
+> source and has been tested on Ubuntu 24.04 and Fedora 45. The interface is in Spanish.
 
 ---
 
@@ -90,6 +90,12 @@ Install the build dependencies. Debian, Ubuntu:
 
 ```bash
 sudo apt install libgtk-4-dev libadwaita-1-dev libgtksourceview-5-dev libpoppler-glib-dev blueprint-compiler groff
+```
+
+Fedora:
+
+```bash
+sudo dnf install gtk4-devel libadwaita-devel gtksourceview5-devel poppler-glib-devel blueprint-compiler groff
 ```
 
 Then build and run:
@@ -174,7 +180,7 @@ and written from the Preferences window, which applies every change at once.
 ## Troubleshooting
 
 **The banner says it cannot find `pdfmom`.** Install groff
-(`sudo apt install groff`), or check the command in Preferences. Myne looks
+(`sudo apt install groff` on Debian and Ubuntu, `sudo dnf install groff` on Fedora), or check the command in Preferences. Myne looks
 for the program in `PATH` when it starts and whenever the command changes.
 
 **A message in the log has no file or line.** groff did not give one. troff
