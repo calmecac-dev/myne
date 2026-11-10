@@ -31,6 +31,11 @@ Done.
 - Completion of mom macros
 - Recent files, and the size of the window and its panes remembered between
   sessions
+- An interface ready for translation: every user-visible string in the Rust
+  code marked for gettext (the Blueprint files already use `_()`), a
+  translation domain set at startup, and a `po/` directory with the template
+  and `POTFILES`. Which language the source strings are written in is still to
+  be decided.
 
 ## 0.3.0 — Working from the PDF
 

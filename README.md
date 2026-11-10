@@ -217,7 +217,7 @@ without a display.
 | Release | Focus |
 |---------|-------|
 | 0.1.0 | Editor, PDF preview and log, with compilation on save |
-| 0.2.0 | Writing comfort: mom syntax highlighting, clickable errors, macro completion, recent files |
+| 0.2.0 | Writing comfort: mom syntax highlighting, clickable errors, macro completion, recent files, an interface ready for translation |
 | 0.3.0 | Working from the PDF: selecting text, jumping from the PDF to the source, reloading on external changes |
 
 See [`docs/roadmap.md`](docs/roadmap.md) for what each release holds.
