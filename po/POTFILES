@@ -1,0 +1,10 @@
+src/application.rs
+src/compiler.rs
+src/config.rs
+src/editor.rs
+src/log_panel.rs
+src/viewer.rs
+src/window.rs
+data/ui/window.blp
+data/ui/preferences-dialog.blp
+data/ui/help-overlay.blp

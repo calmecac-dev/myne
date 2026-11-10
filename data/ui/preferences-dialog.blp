@@ -5,54 +5,54 @@ using Gtk 4.0;
 using Adw 1;
 
 template $MynePreferencesDialog: Adw.PreferencesDialog {
-  title: _("Preferencias");
+  title: _("Preferences");
 
   Adw.PreferencesPage {
     Adw.PreferencesGroup {
-      title: _("Compilación");
+      title: _("Compilation");
 
       Adw.SwitchRow compile_on_save {
-        title: _("Compilar al guardar");
-        subtitle: _("Ejecuta pdfmom cada vez que guardas el documento");
+        title: _("Compile on save");
+        subtitle: _("Runs pdfmom every time you save the document");
       }
 
       Adw.EntryRow command_row {
-        title: _("Comando");
+        title: _("Command");
         text: "pdfmom";
       }
     }
 
     Adw.PreferencesGroup {
-      title: _("Preprocesadores");
-      description: _("Programas de groff que se aplican antes de componer el documento.");
+      title: _("Preprocessors");
+      description: _("groff programs applied before typesetting the document.");
 
       Adw.SwitchRow tbl_row {
-        title: _("Tablas");
-        subtitle: _("tbl, opción -t");
+        title: _("Tables");
+        subtitle: _("tbl, option -t");
       }
 
       Adw.SwitchRow eqn_row {
-        title: _("Ecuaciones");
-        subtitle: _("eqn, opción -e");
+        title: _("Equations");
+        subtitle: _("eqn, option -e");
       }
 
       Adw.SwitchRow pic_row {
-        title: _("Imágenes y diagramas");
-        subtitle: _("pic, opción -p");
+        title: _("Images and diagrams");
+        subtitle: _("pic, option -p");
       }
 
       Adw.SwitchRow refer_row {
-        title: _("Bibliografía");
-        subtitle: _("refer, opción -R");
+        title: _("Bibliography");
+        subtitle: _("refer, option -R");
       }
     }
 
     Adw.PreferencesGroup {
-      title: _("Registro");
+      title: _("Log");
 
       Adw.SwitchRow show_log_on_error {
-        title: _("Mostrar al haber errores");
-        subtitle: _("Abre el registro automáticamente si la compilación falla");
+        title: _("Show on errors");
+        subtitle: _("Opens the log automatically if compilation fails");
       }
     }
   }

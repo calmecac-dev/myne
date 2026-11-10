@@ -2,6 +2,7 @@
 //! Application setup: actions, keyboard shortcuts and the main window.
 
 use adw::prelude::*;
+use gettextrs::gettext;
 use gtk::{gio, glib};
 
 use crate::preferences::PreferencesDialog;
@@ -102,7 +103,11 @@ fn show_about(parent: Option<&Window>) {
         .issue_url("https://github.com/calmecac-dev/myne/issues")
         .copyright("© 2026 Calmécac.dev")
         .developers(["Mauricio Cerón Medina"])
-        .comments("Editor de documentos groff con macros mom, con vista previa en PDF al guardar.")
+        .comments(gettext(
+            "An editor for groff documents written with the mom macros, with a PDF preview on save.",
+        ))
+        // TRANSLATORS: Put your name here, as it should be credited.
+        .translator_credits(gettext("translator-credits"))
         .license_type(gtk::License::Gpl30)
         .build();
     about.present(parent);

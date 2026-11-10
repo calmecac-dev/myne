@@ -5,6 +5,7 @@ use std::fs;
 use std::path::PathBuf;
 
 use anyhow::Context;
+use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
 
 use crate::compiler::CompileOptions;
@@ -50,16 +51,19 @@ impl Config {
                 Err(err) => (
                     Self::default(),
                     Some(
-                        anyhow::Error::new(err).context(format!("{} no es válido", path.display())),
+                        anyhow::Error::new(err).context(
+                            gettext("{path} is not valid")
+                                .replace("{path}", &path.display().to_string()),
+                        ),
                     ),
                 ),
             },
             Err(err) if err.kind() == std::io::ErrorKind::NotFound => (Self::default(), None),
             Err(err) => (
                 Self::default(),
-                Some(
-                    anyhow::Error::new(err).context(format!("no se pudo leer {}", path.display())),
-                ),
+                Some(anyhow::Error::new(err).context(
+                    gettext("could not read {path}").replace("{path}", &path.display().to_string()),
+                )),
             ),
         }
     }
@@ -68,15 +72,19 @@ impl Config {
     pub fn save(&self) -> anyhow::Result<()> {
         let path = Self::path();
         if let Some(dir) = path.parent() {
-            fs::create_dir_all(dir)
-                .with_context(|| format!("no se pudo crear {}", dir.display()))?;
+            fs::create_dir_all(dir).with_context(|| {
+                gettext("could not create {path}").replace("{path}", &dir.display().to_string())
+            })?;
         }
-        let text =
-            toml::to_string_pretty(self).context("no se pudo serializar la configuración")?;
+        let text = toml::to_string_pretty(self)
+            .context(gettext("could not serialize the configuration"))?;
         let tmp = path.with_extension("toml.tmp");
-        fs::write(&tmp, text).with_context(|| format!("no se pudo escribir {}", tmp.display()))?;
-        fs::rename(&tmp, &path)
-            .with_context(|| format!("no se pudo escribir {}", path.display()))?;
+        fs::write(&tmp, text).with_context(|| {
+            gettext("could not write {path}").replace("{path}", &tmp.display().to_string())
+        })?;
+        fs::rename(&tmp, &path).with_context(|| {
+            gettext("could not write {path}").replace("{path}", &path.display().to_string())
+        })?;
         Ok(())
     }
 

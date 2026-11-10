@@ -7,6 +7,7 @@ use std::rc::Rc;
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
+use gettextrs::{gettext, ngettext};
 use gtk::{gio, glib};
 
 use crate::compiler::{self, CompileRequest, Job, Outcome, Severity};
@@ -136,7 +137,7 @@ impl Window {
             self.log_message(
                 Severity::Warning,
                 &format!("{error:#}"),
-                Some("Se usan las preferencias por defecto"),
+                Some(&gettext("Using the default preferences")),
             );
         }
 
@@ -239,7 +240,7 @@ impl Window {
         if let Some(Err(error)) = result {
             self.log_message(
                 Severity::Error,
-                "No se pudieron guardar las preferencias",
+                &gettext("Could not save the preferences"),
                 Some(&format!("{error:#}")),
             );
         }
@@ -276,7 +277,7 @@ impl Window {
             .as_ref()
             .and_then(|f| f.basename())
             .map(|n| n.to_string_lossy().into_owned())
-            .unwrap_or_else(|| "Sin título".into());
+            .unwrap_or_else(|| gettext("Untitled"));
         let marker = if modified { "• " } else { "" };
         imp.window_title.set_title(&format!("{marker}{name}"));
         let subtitle = file
@@ -330,13 +331,15 @@ impl Window {
 
     async fn ask_unsaved(&self) -> Unsaved {
         let dialog = adw::AlertDialog::new(
-            Some("¿Guardar los cambios?"),
-            Some("Si no los guardas, los cambios se perderán."),
+            Some(&gettext("Save changes?")),
+            Some(&gettext(
+                "If you don't save them, the changes will be lost.",
+            )),
         );
         dialog.add_responses(&[
-            ("cancel", "_Cancelar"),
-            ("discard", "_Descartar"),
-            ("save", "_Guardar"),
+            ("cancel", &gettext("_Cancel")),
+            ("discard", &gettext("_Discard")),
+            ("save", &gettext("_Save")),
         ]);
         dialog.set_response_appearance("discard", adw::ResponseAppearance::Destructive);
         dialog.set_response_appearance("save", adw::ResponseAppearance::Suggested);
@@ -351,19 +354,19 @@ impl Window {
 
     fn show_error(&self, heading: &str, body: &str) {
         let dialog = adw::AlertDialog::new(Some(heading), Some(body));
-        dialog.add_response("close", "_Cerrar");
+        dialog.add_response("close", &gettext("_Close"));
         dialog.present(Some(self));
     }
 
     fn file_filters() -> gio::ListStore {
         let mom = gtk::FileFilter::new();
-        mom.set_name(Some("Documentos mom (*.mom)"));
+        mom.set_name(Some(&gettext("mom documents (*.mom)")));
         mom.add_pattern("*.mom");
         let text = gtk::FileFilter::new();
-        text.set_name(Some("Archivos de texto"));
+        text.set_name(Some(&gettext("Text files")));
         text.add_mime_type("text/*");
         let all = gtk::FileFilter::new();
-        all.set_name(Some("Todos los archivos"));
+        all.set_name(Some(&gettext("All files")));
         all.add_pattern("*");
         let filters = gio::ListStore::new::<gtk::FileFilter>();
         filters.append(&mom);
@@ -377,7 +380,7 @@ impl Window {
             return;
         }
         let dialog = gtk::FileDialog::builder()
-            .title("Abrir documento")
+            .title(gettext("Open document"))
             .modal(true)
             .filters(&Self::file_filters())
             .build();
@@ -401,14 +404,14 @@ impl Window {
         let bytes = match file.load_contents_future().await {
             Ok((bytes, _etag)) => bytes,
             Err(error) => {
-                self.show_error("No se pudo abrir el archivo", error.message());
+                self.show_error(&gettext("Could not open the file"), error.message());
                 return;
             }
         };
         let Ok(text) = String::from_utf8(bytes.to_vec()) else {
             self.show_error(
-                "No se pudo abrir el archivo",
-                "El archivo no está codificado en UTF-8.",
+                &gettext("Could not open the file"),
+                &gettext("The file is not encoded in UTF-8."),
             );
             return;
         };
@@ -446,13 +449,13 @@ impl Window {
 
     async fn save_as(&self) -> bool {
         let dialog = gtk::FileDialog::builder()
-            .title("Guardar documento")
+            .title(gettext("Save document"))
             .modal(true)
             .filters(&Self::file_filters())
             .build();
         match self.imp().file.borrow().as_ref() {
             Some(file) => dialog.set_initial_file(Some(file)),
-            None => dialog.set_initial_name(Some("documento.mom")),
+            None => dialog.set_initial_name(Some(&gettext("document.mom"))),
         }
         let Ok(file) = dialog.save_future(Some(self)).await else {
             return false;
@@ -472,7 +475,7 @@ impl Window {
             .replace_contents_future(text.into_bytes(), None, false, gio::FileCreateFlags::NONE)
             .await;
         if let Err((_, error)) = result {
-            self.show_error("No se pudo guardar el archivo", error.message());
+            self.show_error(&gettext("Could not save the file"), error.message());
             return false;
         }
         let is_current = self
@@ -514,15 +517,18 @@ impl Window {
             .ok()
             .and_then(|argv| argv.first().map(|p| p.to_string_lossy().into_owned()))
             .unwrap_or_else(|| "pdfmom".into());
-        imp.banner.set_title(&format!(
-            "No se encontró «{program}». Instala groff para poder compilar."
-        ));
+        imp.banner.set_title(
+            &gettext("Could not find “{program}”. Install groff to be able to compile.")
+                .replace("{program}", &program),
+        );
         imp.banner.set_revealed(true);
         self.set_status("error", 0);
         self.log_message(
             Severity::Error,
-            &format!("No se encontró «{program}» en el PATH"),
-            Some("Instala groff (por ejemplo: sudo apt install groff) o revisa el comando en Preferencias"),
+            &gettext("Could not find “{program}” in PATH").replace("{program}", &program),
+            Some(&gettext(
+                "Install groff (for example: sudo apt install groff) or check the command in Preferences",
+            )),
         );
     }
 
@@ -546,7 +552,7 @@ impl Window {
         let Some(source) = self.source_path() else {
             self.log_message(
                 Severity::Info,
-                "Guarda el documento para poder compilarlo",
+                &gettext("Save the document to be able to compile it"),
                 None,
             );
             return;
@@ -556,7 +562,11 @@ impl Window {
         };
 
         if imp.job.borrow().is_some() {
-            log.append(Severity::Info, "Compilación anterior cancelada", None);
+            log.append(
+                Severity::Info,
+                &gettext("Previous compilation cancelled"),
+                None,
+            );
         }
         self.cancel_compilation();
         let generation = imp.generation.get();
@@ -571,7 +581,7 @@ impl Window {
             .file_name()
             .map(|n| n.to_string_lossy().into_owned())
             .unwrap_or_default();
-        log.begin(&format!("Compilando {name}"));
+        log.begin(&gettext("Compiling {name}").replace("{name}", &name));
         self.set_status("busy", 0);
 
         let win = self.downgrade();
@@ -614,21 +624,18 @@ impl Window {
         };
 
         let seconds = report.elapsed.as_secs_f64();
-        let counts = format!(
-            "{} {}, {} {}",
-            report.errors,
-            if report.errors == 1 {
-                "error"
-            } else {
-                "errores"
-            },
-            report.warnings,
-            if report.warnings == 1 {
-                "aviso"
-            } else {
-                "avisos"
-            },
-        );
+        let errors = u32::try_from(report.errors).unwrap_or(u32::MAX);
+        let warnings = u32::try_from(report.warnings).unwrap_or(u32::MAX);
+        let counts = gettext("{errors}, {warnings}")
+            .replace(
+                "{errors}",
+                &ngettext("{n} error", "{n} errors", errors).replace("{n}", &errors.to_string()),
+            )
+            .replace(
+                "{warnings}",
+                &ngettext("{n} warning", "{n} warnings", warnings)
+                    .replace("{n}", &warnings.to_string()),
+            );
         if report.success {
             self.log_message(
                 if report.warnings > 0 {
@@ -636,7 +643,8 @@ impl Window {
                 } else {
                     Severity::Info
                 },
-                &format!("PDF generado en {seconds:.1} s"),
+                &gettext("PDF generated in {seconds} s")
+                    .replace("{seconds}", &format!("{seconds:.1}")),
                 Some(&counts),
             );
             self.set_status(
@@ -648,13 +656,18 @@ impl Window {
         } else {
             let status = match report.exit_status {
                 Some(0) if report.errors > 0 => counts,
-                Some(0) => format!("{counts}; pdfmom no generó ningún PDF"),
-                Some(code) => format!("{counts}; pdfmom terminó con código {code}"),
-                None => format!("{counts}; pdfmom terminó por una señal"),
+                Some(0) => {
+                    gettext("{counts}; pdfmom did not produce a PDF").replace("{counts}", &counts)
+                }
+                Some(code) => gettext("{counts}; pdfmom exited with code {code}")
+                    .replace("{counts}", &counts)
+                    .replace("{code}", &code.to_string()),
+                None => gettext("{counts}; pdfmom was terminated by a signal")
+                    .replace("{counts}", &counts),
             };
             self.log_message(
                 Severity::Error,
-                "La compilación falló; se conserva el PDF anterior",
+                &gettext("Compilation failed; the previous PDF is kept"),
                 Some(&status),
             );
             self.set_status("error", report.errors + report.warnings);
@@ -671,7 +684,7 @@ impl Window {
         if let Err(error) = shown {
             self.log_message(
                 Severity::Error,
-                "No se pudo mostrar el PDF",
+                &gettext("Could not display the PDF"),
                 Some(error.message()),
             );
         }

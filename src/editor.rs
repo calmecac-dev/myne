@@ -2,6 +2,7 @@
 //! Helpers for the source editor (`GtkSourceView`).
 
 use adw::prelude::*;
+use gettextrs::gettext;
 use gtk::glib;
 use sourceview5::prelude::*;
 
@@ -24,7 +25,10 @@ pub fn text(buffer: &sourceview5::Buffer) -> String {
 /// Text for the position indicator: "Línea 3, col. 14".
 pub fn cursor_position_text(buffer: &sourceview5::Buffer) -> String {
     let iter = buffer.iter_at_offset(buffer.cursor_position());
-    format!("Línea {}, col. {}", iter.line() + 1, iter.line_offset() + 1)
+    // TRANSLATORS: cursor position; {line} and {col} are numbers.
+    gettext("Line {line}, col. {col}")
+        .replace("{line}", &(iter.line() + 1).to_string())
+        .replace("{col}", &(iter.line_offset() + 1).to_string())
 }
 
 /// Keeps the buffer's style scheme in step with the system light/dark setting.

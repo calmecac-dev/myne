@@ -5,6 +5,8 @@
 //! unit tested without a display.
 
 use std::cell::Cell;
+
+use gettextrs::gettext;
 use std::ffi::{OsStr, OsString};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -156,17 +158,17 @@ pub fn parse_line(line: &str) -> Option<Diagnostic> {
 
 #[derive(Debug, thiserror::Error)]
 pub enum CompileError {
-    #[error("el comando de compilación está vacío")]
+    #[error("{}", gettext("the compile command is empty"))]
     EmptyCommand,
-    #[error("el comando de compilación no es válido: {0}")]
+    #[error("{}", gettext("the compile command is not valid: {error}").replace("{error}", &.0.to_string()))]
     InvalidCommand(glib::Error),
-    #[error("la ruta del documento no es válida: {0}")]
+    #[error("{}", gettext("the document path is not valid: {path}").replace("{path}", .0))]
     InvalidSource(String),
-    #[error("no se pudo ejecutar el compilador: {0}")]
+    #[error("{}", gettext("could not run the compiler: {error}").replace("{error}", &.0.to_string()))]
     Spawn(glib::Error),
-    #[error("error al esperar al compilador: {0}")]
+    #[error("{}", gettext("error while waiting for the compiler: {error}").replace("{error}", &.0.to_string()))]
     Wait(glib::Error),
-    #[error("no se pudo colocar el PDF: {0}")]
+    #[error("{}", gettext("could not put the PDF in place: {error}").replace("{error}", &.0.to_string()))]
     Io(#[from] std::io::Error),
 }
 
@@ -362,9 +364,10 @@ pub async fn run(
                 }
                 Ok(None) => break,
                 Err(err) => {
-                    on_diagnostic(&Diagnostic::info(&format!(
-                        "(salida ilegible del compilador: {err})"
-                    )));
+                    on_diagnostic(&Diagnostic::info(
+                        &gettext("(unreadable compiler output: {error})")
+                            .replace("{error}", &err.to_string()),
+                    ));
                     break;
                 }
             }

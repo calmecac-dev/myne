@@ -2,6 +2,7 @@
 //! Compilation log: one row per message in the `log_list` of the window.
 
 use adw::prelude::*;
+use gettextrs::gettext;
 use gtk::glib;
 
 use crate::compiler::{Diagnostic, Severity};
@@ -55,7 +56,11 @@ impl LogPanel {
                 Some(prog) => format!("{prog} · {file}:{line}"),
                 None => format!("{file}:{line}"),
             }),
-            (Some(prog), _, Some(line)) => Some(format!("{prog} · línea {line}")),
+            (Some(prog), _, Some(line)) => Some(
+                gettext("{prog} · line {line}")
+                    .replace("{prog}", prog)
+                    .replace("{line}", &line.to_string()),
+            ),
             (Some(prog), _, None) => Some(prog.clone()),
             (None, Some(file), None) => Some(file.clone()),
             (None, _, _) => None,
@@ -75,8 +80,8 @@ impl LogPanel {
             row.set_subtitle(subtitle);
         }
         let icon = match severity {
-            Severity::Error => Some(("dialog-error-symbolic", "error", "Error")),
-            Severity::Warning => Some(("dialog-warning-symbolic", "warning", "Aviso")),
+            Severity::Error => Some(("dialog-error-symbolic", "error", gettext("Error"))),
+            Severity::Warning => Some(("dialog-warning-symbolic", "warning", gettext("Warning"))),
             Severity::Info => None,
         };
         match icon {
@@ -84,7 +89,7 @@ impl LogPanel {
                 let image = gtk::Image::builder()
                     .icon_name(name)
                     .css_classes([class])
-                    .tooltip_text(tooltip)
+                    .tooltip_text(tooltip.as_str())
                     .build();
                 row.add_prefix(&image);
             }

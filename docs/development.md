@@ -59,8 +59,10 @@ cargo fmt --check
 - **Every source file starts with an SPDX line:**
   `// SPDX-License-Identifier: GPL-3.0-or-later`, or the equivalent comment for
   its format.
-- **Code, identifiers, commits and documentation are in English.** The
-  interface is in Spanish.
+- **Code, identifiers, commits and documentation are in English.** So are the
+  interface strings in the code, which gettext translates; see
+  [translating.md](translating.md). Never write a user-visible string without
+  `gettext`.
 
 ## Where things live
 

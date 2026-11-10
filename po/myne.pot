@@ -1,0 +1,431 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Myne package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Myne\n"
+"Report-Msgid-Bugs-To: https://github.com/calmecac-dev/myne/issues\n"
+"POT-Creation-Date: 2026-11-10 11:20-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: data/ui/help-overlay.blp:12
+msgid "Document"
+msgstr ""
+
+#: data/ui/help-overlay.blp:15 data/ui/window.blp:72
+msgid "Open"
+msgstr ""
+
+#: data/ui/help-overlay.blp:20 data/ui/window.blp:83
+msgid "Save"
+msgstr ""
+
+#: data/ui/help-overlay.blp:25
+msgid "Save as"
+msgstr ""
+
+#: data/ui/help-overlay.blp:30
+msgid "Compile without saving"
+msgstr ""
+
+#: data/ui/help-overlay.blp:36
+msgid "Preview"
+msgstr ""
+
+#: data/ui/help-overlay.blp:39 data/ui/window.blp:258
+msgid "Zoom in"
+msgstr ""
+
+#: data/ui/help-overlay.blp:44 data/ui/window.blp:242
+msgid "Zoom out"
+msgstr ""
+
+#: data/ui/help-overlay.blp:49 data/ui/window.blp:272
+msgid "Fit to width"
+msgstr ""
+
+#: data/ui/help-overlay.blp:55
+msgid "General"
+msgstr ""
+
+#: data/ui/help-overlay.blp:58
+msgid "Show or hide the log"
+msgstr ""
+
+#: data/ui/help-overlay.blp:63 data/ui/preferences-dialog.blp:8
+#: data/ui/window.blp:25
+msgid "Preferences"
+msgstr ""
+
+#: data/ui/help-overlay.blp:68 data/ui/window.blp:30
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: data/ui/help-overlay.blp:73
+msgid "Quit"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:25
+msgid "Compilation"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:28
+msgid "Compile on save"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:29
+msgid "Runs pdfmom every time you save the document"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:33
+msgid "Command"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:39
+msgid "Preprocessors"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:40
+msgid "groff programs applied before typesetting the document."
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:43
+msgid "Tables"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:44
+msgid "tbl, option -t"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:48
+msgid "Equations"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:49
+msgid "eqn, option -e"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:53
+msgid "Images and diagrams"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:54
+msgid "pic, option -p"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:58
+msgid "Bibliography"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:59
+msgid "refer, option -R"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:64
+msgid "Log"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:67
+msgid "Show on errors"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:68
+msgid "Opens the log automatically if compilation fails"
+msgstr ""
+
+#: data/ui/window.blp:35
+msgid "Help"
+msgstr ""
+
+#: data/ui/window.blp:40
+msgid "About Myne"
+msgstr ""
+
+#: data/ui/window.blp:68
+msgid "Open (Ctrl+O)"
+msgstr ""
+
+#: data/ui/window.blp:80
+msgid "Save (Ctrl+S)"
+msgstr ""
+
+#: data/ui/window.blp:99 data/ui/window.blp:102
+msgid "Main menu"
+msgstr ""
+
+#: data/ui/window.blp:110
+msgid "Compilation log (Ctrl+Shift+L)"
+msgstr ""
+
+#: data/ui/window.blp:113 data/ui/window.blp:328
+msgid "Compilation log"
+msgstr ""
+
+#: data/ui/window.blp:199
+msgid "Line 1, col. 1"
+msgstr ""
+
+#: data/ui/window.blp:211
+msgid "Compilation failed. The last good version is shown."
+msgstr ""
+
+#: data/ui/window.blp:212
+msgid "View log"
+msgstr ""
+
+#: data/ui/window.blp:239
+msgid "Zoom out (Ctrl+−)"
+msgstr ""
+
+#: data/ui/window.blp:255
+msgid "Zoom in (Ctrl++)"
+msgstr ""
+
+#: data/ui/window.blp:269
+msgid "Fit to width (Ctrl+0)"
+msgstr ""
+
+#: data/ui/window.blp:283 data/ui/window.blp:286
+msgid "Previous page"
+msgstr ""
+
+#: data/ui/window.blp:298 data/ui/window.blp:301
+msgid "Next page"
+msgstr ""
+
+#: data/ui/window.blp:335 data/ui/window.blp:339
+msgid "Clear log"
+msgstr ""
+
+#: data/ui/window.blp:346
+msgid "Hide log (Ctrl+Shift+L)"
+msgstr ""
+
+#: data/ui/window.blp:350
+msgid "Hide log"
+msgstr ""
+
+#: src/application.rs:107
+msgid ""
+"An editor for groff documents written with the mom macros, with a PDF "
+"preview on save."
+msgstr ""
+
+#. TRANSLATORS: Put your name here, as it should be credited.
+#: src/application.rs:110
+msgid "translator-credits"
+msgstr ""
+
+#: src/compiler.rs:368
+#, rust-format
+msgid "(unreadable compiler output: {error})"
+msgstr ""
+
+#: src/config.rs:58
+#, rust-format
+msgid "{path} is not valid"
+msgstr ""
+
+#: src/config.rs:68
+#, rust-format
+msgid "could not read {path}"
+msgstr ""
+
+#: src/config.rs:79
+#, rust-format
+msgid "could not create {path}"
+msgstr ""
+
+#: src/config.rs:83
+msgid "could not serialize the configuration"
+msgstr ""
+
+#: src/config.rs:86 src/config.rs:89
+#, rust-format
+msgid "could not write {path}"
+msgstr ""
+
+#. TRANSLATORS: cursor position; {line} and {col} are numbers.
+#: src/editor.rs:29
+#, rust-format
+msgid "Line {line}, col. {col}"
+msgstr ""
+
+#: src/log_panel.rs:60
+#, rust-format
+msgid "{prog} · line {line}"
+msgstr ""
+
+#: src/log_panel.rs:83
+msgid "Error"
+msgstr ""
+
+#: src/log_panel.rs:84
+msgid "Warning"
+msgstr ""
+
+#: src/viewer.rs:181
+msgid "No preview"
+msgstr ""
+
+#: src/viewer.rs:183
+msgid "Save the document or press F5 to generate the PDF."
+msgstr ""
+
+#: src/window.rs:140
+msgid "Using the default preferences"
+msgstr ""
+
+#: src/window.rs:243
+msgid "Could not save the preferences"
+msgstr ""
+
+#: src/window.rs:280
+msgid "Untitled"
+msgstr ""
+
+#: src/window.rs:334
+msgid "Save changes?"
+msgstr ""
+
+#: src/window.rs:336
+msgid "If you don't save them, the changes will be lost."
+msgstr ""
+
+#: src/window.rs:340
+msgid "_Cancel"
+msgstr ""
+
+#: src/window.rs:341
+msgid "_Discard"
+msgstr ""
+
+#: src/window.rs:342
+msgid "_Save"
+msgstr ""
+
+#: src/window.rs:357
+msgid "_Close"
+msgstr ""
+
+#: src/window.rs:363
+msgid "mom documents (*.mom)"
+msgstr ""
+
+#: src/window.rs:366
+msgid "Text files"
+msgstr ""
+
+#: src/window.rs:369
+msgid "All files"
+msgstr ""
+
+#: src/window.rs:383
+msgid "Open document"
+msgstr ""
+
+#: src/window.rs:407 src/window.rs:413
+msgid "Could not open the file"
+msgstr ""
+
+#: src/window.rs:414
+msgid "The file is not encoded in UTF-8."
+msgstr ""
+
+#: src/window.rs:452
+msgid "Save document"
+msgstr ""
+
+#: src/window.rs:458
+msgid "document.mom"
+msgstr ""
+
+#: src/window.rs:478
+msgid "Could not save the file"
+msgstr ""
+
+#: src/window.rs:521
+#, rust-format
+msgid "Could not find “{program}”. Install groff to be able to compile."
+msgstr ""
+
+#: src/window.rs:528
+#, rust-format
+msgid "Could not find “{program}” in PATH"
+msgstr ""
+
+#: src/window.rs:530
+msgid ""
+"Install groff (for example: sudo apt install groff) or check the command in "
+"Preferences"
+msgstr ""
+
+#: src/window.rs:555
+msgid "Save the document to be able to compile it"
+msgstr ""
+
+#: src/window.rs:567
+msgid "Previous compilation cancelled"
+msgstr ""
+
+#: src/window.rs:584
+#, rust-format
+msgid "Compiling {name}"
+msgstr ""
+
+#: src/window.rs:629
+#, rust-format
+msgid "{errors}, {warnings}"
+msgstr ""
+
+#: src/window.rs:632
+#, rust-format
+msgid "{n} error"
+msgid_plural "{n} errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window.rs:636
+#, rust-format
+msgid "{n} warning"
+msgid_plural "{n} warnings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/window.rs:646
+#, rust-format
+msgid "PDF generated in {seconds} s"
+msgstr ""
+
+#: src/window.rs:660
+#, rust-format
+msgid "{counts}; pdfmom did not produce a PDF"
+msgstr ""
+
+#: src/window.rs:662
+#, rust-format
+msgid "{counts}; pdfmom exited with code {code}"
+msgstr ""
+
+#: src/window.rs:665
+#, rust-format
+msgid "{counts}; pdfmom was terminated by a signal"
+msgstr ""
+
+#: src/window.rs:670
+msgid "Compilation failed; the previous PDF is kept"
+msgstr ""
+
+#: src/window.rs:687
+msgid "Could not display the PDF"
+msgstr ""

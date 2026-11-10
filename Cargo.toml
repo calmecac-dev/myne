@@ -12,6 +12,7 @@ gtk = { package = "gtk4", version = "0.11", features = ["v4_14"] }
 sourceview5 = { version = "0.11", features = ["v5_12"] }
 poppler-rs = { version = "0.26", features = ["v0_82"] }
 cairo-rs = "0.22"
+gettext-rs = { version = "0.8", features = ["gettext-system"] }
 gio = "0.22"
 glib = "0.22"
 anyhow = "1"

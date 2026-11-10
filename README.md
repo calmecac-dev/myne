@@ -17,7 +17,7 @@ left, read the PDF on the right; every save compiles it.
 
 > [!NOTE]
 > Early development: there are no releases or packages yet. Myne builds from
-> source and has been tested on Ubuntu 24.04 and Fedora 45. The interface is in Spanish.
+> source and has been tested on Ubuntu 24.04 and Fedora 45. The interface follows the system language, with Spanish translated.
 
 ---
 
@@ -214,7 +214,8 @@ myne/
 │   ├── dev.calmecac.Myne.desktop
 │   ├── myne.gresource.xml
 │   └── style.css
-├── docs/              Development notes and the roadmap
+├── docs/              Development notes, translating and the roadmap
+├── po/                Translations: the template, `es.po` and `i18n.sh`
 ├── src/
 │   ├── application.rs Actions, shortcuts and the About dialog
 │   ├── compiler.rs    Running pdfmom and parsing groff's messages

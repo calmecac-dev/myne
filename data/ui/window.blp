@@ -22,29 +22,29 @@ using GtkSource 5;
 menu primary_menu {
   section {
     item {
-      label: _("Preferencias");
+      label: _("Preferences");
       action: "app.preferences";
     }
 
     item {
-      label: _("Atajos de teclado");
+      label: _("Keyboard shortcuts");
       action: "win.show-help-overlay";
     }
 
     item {
-      label: _("Ayuda");
+      label: _("Help");
       action: "app.help";
     }
 
     item {
-      label: _("Acerca de Myne");
+      label: _("About Myne");
       action: "app.about";
     }
   }
 }
 
 template $MyneWindow: Adw.ApplicationWindow {
-  title: _("Myne");
+  title: "Myne";
   default-width: 1100;
   default-height: 700;
   width-request: 360;
@@ -65,11 +65,11 @@ template $MyneWindow: Adw.ApplicationWindow {
       [start]
       Button open_button {
         action-name: "win.open";
-        tooltip-text: _("Abrir (Ctrl+O)");
+        tooltip-text: _("Open (Ctrl+O)");
 
         child: Adw.ButtonContent {
           icon-name: "myne-open-symbolic";
-          label: _("Abrir");
+          label: _("Open");
         };
       }
 
@@ -77,10 +77,10 @@ template $MyneWindow: Adw.ApplicationWindow {
       Button save_button {
         action-name: "win.save";
         icon-name: "myne-save-symbolic";
-        tooltip-text: _("Guardar (Ctrl+S)");
+        tooltip-text: _("Save (Ctrl+S)");
 
         accessibility {
-          label: _("Guardar");
+          label: _("Save");
         }
       }
 
@@ -96,10 +96,10 @@ template $MyneWindow: Adw.ApplicationWindow {
         icon-name: "open-menu-symbolic";
         menu-model: primary_menu;
         primary: true;
-        tooltip-text: _("Menú principal");
+        tooltip-text: _("Main menu");
 
         accessibility {
-          label: _("Menú principal");
+          label: _("Main menu");
         }
       }
 
@@ -107,10 +107,10 @@ template $MyneWindow: Adw.ApplicationWindow {
       [end]
       ToggleButton log_button {
         action-name: "win.show-log";
-        tooltip-text: _("Registro de compilación (Ctrl+Mayús+L)");
+        tooltip-text: _("Compilation log (Ctrl+Shift+L)");
 
         accessibility {
-          label: _("Registro de compilación");
+          label: _("Compilation log");
         }
 
         child: Box {
@@ -196,7 +196,7 @@ template $MyneWindow: Adw.ApplicationWindow {
             valign: end;
             margin-end: 12;
             margin-bottom: 10;
-            label: _("Línea 1, col. 1");
+            label: _("Line 1, col. 1");
             can-target: false;
             styles ["caption", "dim-label", "numeric"]
           }
@@ -208,8 +208,8 @@ template $MyneWindow: Adw.ApplicationWindow {
             orientation: vertical;
 
             Adw.Banner banner {
-              title: _("La compilación falló. Se muestra la última versión correcta.");
-              button-label: _("Ver registro");
+              title: _("Compilation failed. The last good version is shown.");
+              button-label: _("View log");
               action-name: "win.open-log";
               revealed: false;
             }
@@ -236,10 +236,10 @@ template $MyneWindow: Adw.ApplicationWindow {
             Button {
               action-name: "win.zoom-out";
               icon-name: "zoom-out-symbolic";
-              tooltip-text: _("Alejar (Ctrl+−)");
+              tooltip-text: _("Zoom out (Ctrl+−)");
 
               accessibility {
-                label: _("Alejar");
+                label: _("Zoom out");
               }
             }
 
@@ -252,10 +252,10 @@ template $MyneWindow: Adw.ApplicationWindow {
             Button {
               action-name: "win.zoom-in";
               icon-name: "zoom-in-symbolic";
-              tooltip-text: _("Acercar (Ctrl++)");
+              tooltip-text: _("Zoom in (Ctrl++)");
 
               accessibility {
-                label: _("Acercar");
+                label: _("Zoom in");
               }
             }
 
@@ -266,10 +266,10 @@ template $MyneWindow: Adw.ApplicationWindow {
             Button {
               action-name: "win.zoom-fit";
               icon-name: "zoom-fit-best-symbolic";
-              tooltip-text: _("Ajustar al ancho (Ctrl+0)");
+              tooltip-text: _("Fit to width (Ctrl+0)");
 
               accessibility {
-                label: _("Ajustar al ancho");
+                label: _("Fit to width");
               }
             }
 
@@ -280,10 +280,10 @@ template $MyneWindow: Adw.ApplicationWindow {
             Button {
               action-name: "win.prev-page";
               icon-name: "go-previous-symbolic";
-              tooltip-text: _("Página anterior");
+              tooltip-text: _("Previous page");
 
               accessibility {
-                label: _("Página anterior");
+                label: _("Previous page");
               }
             }
 
@@ -295,10 +295,10 @@ template $MyneWindow: Adw.ApplicationWindow {
             Button {
               action-name: "win.next-page";
               icon-name: "go-next-symbolic";
-              tooltip-text: _("Página siguiente");
+              tooltip-text: _("Next page");
 
               accessibility {
-                label: _("Página siguiente");
+                label: _("Next page");
               }
             }
           }
@@ -325,29 +325,29 @@ template $MyneWindow: Adw.ApplicationWindow {
             Label {
               hexpand: true;
               halign: start;
-              label: _("Registro de compilación");
+              label: _("Compilation log");
               styles ["heading"]
             }
 
             Button {
               action-name: "win.clear-log";
               icon-name: "edit-clear-all-symbolic";
-              tooltip-text: _("Limpiar registro");
+              tooltip-text: _("Clear log");
               styles ["flat"]
 
               accessibility {
-                label: _("Limpiar registro");
+                label: _("Clear log");
               }
             }
 
             Button {
               action-name: "win.hide-log";
               icon-name: "go-down-symbolic";
-              tooltip-text: _("Ocultar registro (Ctrl+Mayús+L)");
+              tooltip-text: _("Hide log (Ctrl+Shift+L)");
               styles ["flat"]
 
               accessibility {
-                label: _("Ocultar registro");
+                label: _("Hide log");
               }
             }
           }

@@ -13,6 +13,7 @@ use std::sync::OnceLock;
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
+use gettextrs::gettext;
 use gtk::glib::subclass::Signal;
 use gtk::{gio, glib};
 
@@ -177,8 +178,10 @@ mod imp {
 
             let empty = adw::StatusPage::builder()
                 .icon_name("x-office-document-symbolic")
-                .title("Sin vista previa")
-                .description("Guarda el documento o pulsa F5 para generar el PDF.")
+                .title(gettext("No preview"))
+                .description(gettext(
+                    "Save the document or press F5 to generate the PDF.",
+                ))
                 .vexpand(true)
                 .build();
             empty.add_css_class("compact");
