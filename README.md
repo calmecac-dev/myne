@@ -76,7 +76,11 @@ Bookworm* and its characters belong to their authors.
 - Fits the page to the width by default, with `Ctrl` + wheel, buttons and
   shortcuts to zoom
 - Lets you turn on the tbl, eqn, pic and refer preprocessors, change the
-  command and stop compiling on save, from Preferences
+  command, stop compiling on save and pick the interface language, from
+  Preferences
+- Follows the system's light or dark style in the editor
+- Speaks the system language, with Spanish translated and more welcome (see
+  [docs/translating.md](docs/translating.md))
 - Asks before throwing away unsaved changes, on closing or opening another file
 - Starts without groff installed, and says what is missing
 
@@ -110,7 +114,8 @@ Building needs Rust 1.92 or later, GTK 4.14, libadwaita 1.5, GtkSourceView 5.12
 and Poppler 0.82. groff is only needed to compile documents, not to build.
 
 There is no install target yet: the desktop file and the icon in `data/` are
-not copied anywhere by the build.
+not copied anywhere by the build. The translations are not either: run
+`po/i18n.sh install` once to see Myne in Spanish.
 
 ---
 
@@ -173,15 +178,17 @@ stops the whole group, so a burst of saves leaves nothing running behind.
 the path, so it neither depends on the file staying on disk nor keeps it open.
 
 **Preferences live in a file.** They are kept in `~/.config/myne/config.toml`
-and written from the Preferences window, which applies every change at once.
+and written from the Preferences window, which applies every change at once,
+except the language, which waits for the next start.
 
 ---
 
 ## Troubleshooting
 
-**The banner says it cannot find `pdfmom`.** Install groff
-(`sudo apt install groff` on Debian and Ubuntu, `sudo dnf install groff` on Fedora), or check the command in Preferences. Myne looks
-for the program in `PATH` when it starts and whenever the command changes.
+**The banner says it cannot find `pdfmom`.** Install groff (`sudo apt install
+groff` on Debian and Ubuntu, `sudo dnf install groff` on Fedora), or check the
+command in Preferences. Myne looks for the program in `PATH` when it starts and
+whenever the command changes.
 
 **A message in the log has no file or line.** groff did not give one. troff
 omits the location, for instance, when a `.so` on the last line of a file
@@ -208,7 +215,7 @@ time, and only for the pages near the viewport.
 ```
 myne/
 ├── data/
-│   ├── icons/         The application icon and the save icon
+│   ├── icons/         The application icon and the Open and Save icons
 │   ├── screenshots/   The screenshot in this README
 │   ├── ui/            Blueprint files: the window, Preferences and the shortcuts
 │   ├── dev.calmecac.Myne.desktop
@@ -242,7 +249,7 @@ without a display.
 | Release | Focus |
 |---------|-------|
 | 0.1.0 | Editor, PDF preview and log, with compilation on save |
-| 0.2.0 | Writing comfort: mom syntax highlighting, clickable errors, macro completion, recent files, an interface ready for translation |
+| 0.2.0 | Writing comfort: mom syntax highlighting, clickable errors, macro completion, recent files |
 | 0.3.0 | Working from the PDF: selecting text, jumping from the PDF to the source, reloading on external changes |
 
 See [`docs/roadmap.md`](docs/roadmap.md) for what each release holds.
@@ -256,6 +263,7 @@ See [`docs/roadmap.md`](docs/roadmap.md) for what each release holds.
 | [CHANGELOG.md](CHANGELOG.md) | What changed in each release |
 | [docs/roadmap.md](docs/roadmap.md) | What is done and what comes next |
 | [docs/development.md](docs/development.md) | Building, testing, and the rules the code follows |
+| [docs/translating.md](docs/translating.md) | Adding and updating translations |
 
 ---
 

@@ -21,3 +21,6 @@ and this project uses [Semantic Versioning](https://semver.org/).
 - Preferences for compiling on save, the command, and the tbl, eqn, pic and
   refer preprocessors.
 - A clear message when `pdfmom` is not installed.
+- An editor color scheme that follows the system's light or dark style.
+- An interface ready for translation, with Spanish translated and a language
+  selector in Preferences that applies on the next start.

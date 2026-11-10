@@ -17,6 +17,7 @@ Done.
   reloads
 - groff's messages in the log as they arrive, by severity
 - A check for `pdfmom` at startup, with an explanation when it is missing
+- An editor color scheme that follows the system's light or dark style
 - An interface ready for translation: strings written in English and marked
   for gettext, a `myne` domain set at startup, Spanish translated, and a
   language picker in Preferences
@@ -28,8 +29,6 @@ Done.
 - Syntax highlighting for mom, with a GtkSourceView language file: macro lines
   starting with `.`, the escapes `\*[...]` and `\[...]`, and the comments `\"`
   and `.\"`
-- An editor color scheme that follows the system's light or dark style; today
-  the editor stays light in dark mode
 - Log messages that take you to their line in the editor and mark it
 - Completion of mom macros
 - Recent files, and the size of the window and its panes remembered between
