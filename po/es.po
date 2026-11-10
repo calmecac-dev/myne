@@ -74,6 +74,18 @@ msgstr "Atajos de teclado"
 msgid "Quit"
 msgstr "Salir"
 
+#: data/ui/preferences-dialog.blp:13
+msgid "Language"
+msgstr "Idioma"
+
+#: data/ui/preferences-dialog.blp:14
+msgid "Applies after restarting Myne"
+msgstr "Se aplica al reiniciar Myne"
+
+#: data/ui/preferences-dialog.blp:19
+msgid "System language"
+msgstr "Idioma del sistema"
+
 #: data/ui/preferences-dialog.blp:25
 msgid "Compilation"
 msgstr "Compilación"

@@ -9,6 +9,19 @@ template $MynePreferencesDialog: Adw.PreferencesDialog {
 
   Adw.PreferencesPage {
     Adw.PreferencesGroup {
+      Adw.ComboRow language_row {
+        title: _("Language");
+        subtitle: _("Applies after restarting Myne");
+
+        // Same order as LANGUAGES in src/preferences.rs. Each language is
+        // named in itself, so anyone can find theirs.
+        model: StringList {
+          strings [_("System language"), "English", "Español"]
+        };
+      }
+    }
+
+    Adw.PreferencesGroup {
       title: _("Compilation");
 
       Adw.SwitchRow compile_on_save {

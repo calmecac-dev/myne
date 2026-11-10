@@ -75,6 +75,18 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
+#: data/ui/preferences-dialog.blp:13
+msgid "Language"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:14
+msgid "Applies after restarting Myne"
+msgstr ""
+
+#: data/ui/preferences-dialog.blp:19
+msgid "System language"
+msgstr ""
+
 #: data/ui/preferences-dialog.blp:25
 msgid "Compilation"
 msgstr ""

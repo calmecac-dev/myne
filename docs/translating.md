@@ -21,6 +21,10 @@ Messages with `{name}` get a value at runtime; keep the placeholder as it is in
 the translation. Plurals use `msgid_plural`. `msgfmt --check`, run by
 `po/i18n.sh install`, rejects a plural form that is missing.
 
+A new language also goes in `LANGUAGES` in `src/preferences.rs` and in the
+`StringList` of the language row in `data/ui/preferences-dialog.blp`, in the
+same order and named in itself.
+
 ## Marking strings
 
 - **Rust:** wrap the text in `gettext("...")`, or `ngettext` for plurals. Put

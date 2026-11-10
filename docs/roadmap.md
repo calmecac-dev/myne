@@ -18,7 +18,8 @@ Done.
 - groff's messages in the log as they arrive, by severity
 - A check for `pdfmom` at startup, with an explanation when it is missing
 - An interface ready for translation: strings written in English and marked
-  for gettext, a `myne` domain set at startup, and Spanish translated
+  for gettext, a `myne` domain set at startup, Spanish translated, and a
+  language picker in Preferences
 - Preferences: compile on save, the command, and the tbl, eqn, pic and refer
   preprocessors
 
@@ -33,8 +34,6 @@ Done.
 - Completion of mom macros
 - Recent files, and the size of the window and its panes remembered between
   sessions
-- A language picker in Preferences, on top of the translation support already
-  in place (see `docs/translating.md`)
 
 ## 0.3.0 — Working from the PDF
 

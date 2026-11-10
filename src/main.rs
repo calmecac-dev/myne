@@ -24,6 +24,11 @@ fn init_locale() {
     };
     // SAFETY: called first thing in main, before any other thread exists.
     unsafe {
+        // gettext, GTK and libadwaita all read LANGUAGE first.
+        let language = config::Config::load().0.language;
+        if !language.is_empty() {
+            std::env::set_var("LANGUAGE", language);
+        }
         setlocale(LocaleCategory::LcAll, "");
     }
     let dir = std::iter::once(glib::user_data_dir())

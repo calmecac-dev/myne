@@ -9,6 +9,9 @@ use gtk::glib;
 use crate::config::Config;
 use crate::window::Window;
 
+/// Language codes in the order of the language row; empty is the system's.
+const LANGUAGES: [&str; 3] = ["", "en", "es"];
+
 /// Stores the value of a switch in the configuration.
 type Setter = fn(&mut Config, bool);
 
@@ -32,6 +35,8 @@ mod imp {
         pub refer_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub show_log_on_error: TemplateChild<adw::SwitchRow>,
+        #[template_child]
+        pub language_row: TemplateChild<adw::ComboRow>,
     }
 
     #[glib::object_subclass]
@@ -74,6 +79,22 @@ impl PreferencesDialog {
         imp.pic_row.set_active(config.pic);
         imp.refer_row.set_active(config.refer);
         imp.show_log_on_error.set_active(config.show_log_on_error);
+
+        let selected = LANGUAGES
+            .iter()
+            .position(|code| *code == config.language)
+            .unwrap_or(0);
+        imp.language_row
+            .set_selected(u32::try_from(selected).unwrap_or(0));
+        imp.language_row.connect_selected_notify(glib::clone!(
+            #[weak]
+            window,
+            move |row| {
+                if let Some(code) = LANGUAGES.get(row.selected() as usize) {
+                    window.update_config(|c| c.language = (*code).to_owned());
+                }
+            }
+        ));
 
         let switches: [(&adw::SwitchRow, Setter); 6] = [
             (&imp.compile_on_save, |c, v| c.compile_on_save = v),

@@ -20,6 +20,8 @@ pub struct Config {
     pub pic: bool,
     pub refer: bool,
     pub show_log_on_error: bool,
+    /// Interface language code, such as `es`; empty follows the system.
+    pub language: String,
 }
 
 impl Default for Config {
@@ -32,6 +34,7 @@ impl Default for Config {
             pic: false,
             refer: false,
             show_log_on_error: true,
+            language: String::new(),
         }
     }
 }
@@ -109,6 +112,12 @@ mod tests {
         assert!(config.tbl);
         assert!(config.compile_on_save);
         assert_eq!(config.command, "pdfmom");
+    }
+
+    #[test]
+    fn language_defaults_to_system() {
+        let config: Config = toml::from_str("tbl = true\n").expect("parse");
+        assert!(config.language.is_empty());
     }
 
     #[test]
