@@ -151,6 +151,7 @@ impl Window {
         self.update_viewer_labels(&imp.pdf_view);
 
         let buffer = imp.source_buffer.get();
+        editor::follow_system_theme(&buffer);
         buffer.connect_modified_changed(glib::clone!(
             #[weak(rename_to = win)]
             self,
