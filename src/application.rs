@@ -96,7 +96,12 @@ fn show_about(parent: Option<&Window>) {
     let about = adw::AboutDialog::builder()
         .application_name("Myne")
         .application_icon(APP_ID)
+        .developer_name("Calmécac.dev")
         .version(env!("CARGO_PKG_VERSION"))
+        .website("https://github.com/calmecac-dev/myne")
+        .issue_url("https://github.com/calmecac-dev/myne/issues")
+        .copyright("© 2026 Calmécac.dev")
+        .developers(["Mauricio Cerón Medina"])
         .comments("Editor de documentos groff con macros mom, con vista previa en PDF al guardar.")
         .license_type(gtk::License::Gpl30)
         .build();
