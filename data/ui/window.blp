@@ -1,0 +1,367 @@
+// Myne: ventana principal.
+// Requiere libadwaita >= 1.5 y GtkSourceView 5.
+//
+// Acciones que debe registrar la ventana (prefijo "win."):
+//   open, save, zoom-in, zoom-out, zoom-fit, prev-page, next-page,
+//   clear-log, hide-log, open-log (acciones simples)
+//   show-log (acción con estado booleano; alimenta el botón de estado y el Revealer)
+// Acciones de la aplicación (prefijo "app."): preferences, help, about
+// Atajos sugeridos: win.open Ctrl+O, win.save Ctrl+S, win.show-log Ctrl+Mayús+L,
+//   win.zoom-in Ctrl++, win.zoom-out Ctrl+-, win.zoom-fit Ctrl+0,
+//   app.preferences Ctrl+, , win.show-help-overlay Ctrl+?
+//
+// Estado de la compilación: poner status_stack.visible-child-name en
+//   "busy" | "ok" | "warning" | "error", status_count.label con el número de
+//   avisos y banner.revealed = true solo si falla la compilación.
+using Gtk 4.0;
+using Adw 1;
+using GtkSource 5;
+
+menu primary_menu {
+  section {
+    item {
+      label: _("Preferencias");
+      action: "app.preferences";
+    }
+
+    item {
+      label: _("Atajos de teclado");
+      action: "win.show-help-overlay";
+    }
+
+    item {
+      label: _("Ayuda");
+      action: "app.help";
+    }
+
+    item {
+      label: _("Acerca de Myne");
+      action: "app.about";
+    }
+  }
+}
+
+template $MyneWindow: Adw.ApplicationWindow {
+  title: _("Myne");
+  default-width: 1100;
+  default-height: 700;
+  width-request: 360;
+  height-request: 480;
+
+  // En ventanas estrechas el editor y el visor se apilan.
+  Adw.Breakpoint {
+    condition ("max-width: 780sp")
+
+    setters {
+      paned.orientation: vertical;
+    }
+  }
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Button open_button {
+        action-name: "win.open";
+        tooltip-text: _("Abrir (Ctrl+O)");
+
+        child: Adw.ButtonContent {
+          icon-name: "document-open-symbolic";
+          label: _("Abrir");
+        };
+      }
+
+      [start]
+      Button save_button {
+        action-name: "win.save";
+        icon-name: "document-save-symbolic";
+        tooltip-text: _("Guardar (Ctrl+S)");
+
+        accessibility {
+          label: _("Guardar");
+        }
+      }
+
+      [title]
+      Adw.WindowTitle window_title {
+        title: "Informe_Tecnico.mom";
+        subtitle: "~/Documentos/Informes";
+      }
+
+      // El primer [end] queda en el extremo derecho.
+      [end]
+      MenuButton primary_menu_button {
+        icon-name: "open-menu-symbolic";
+        menu-model: primary_menu;
+        primary: true;
+        tooltip-text: _("Menú principal");
+
+        accessibility {
+          label: _("Menú principal");
+        }
+      }
+
+      // Estado de la compilación; también muestra y oculta el registro.
+      [end]
+      ToggleButton log_button {
+        action-name: "win.show-log";
+        tooltip-text: _("Registro de compilación (Ctrl+Mayús+L)");
+
+        accessibility {
+          label: _("Registro de compilación");
+        }
+
+        child: Box {
+          spacing: 6;
+
+          // La primera página es la visible por defecto.
+          Stack status_stack {
+            StackPage {
+              name: "ok";
+
+              child: Image {
+                icon-name: "emblem-ok-symbolic";
+                styles ["success"]
+              };
+            }
+
+            StackPage {
+              name: "busy";
+
+              child: Spinner {
+                spinning: true;
+              };
+            }
+
+            StackPage {
+              name: "warning";
+
+              child: Image {
+                icon-name: "dialog-warning-symbolic";
+                styles ["warning"]
+              };
+            }
+
+            StackPage {
+              name: "error";
+
+              child: Image {
+                icon-name: "dialog-error-symbolic";
+                styles ["error"]
+              };
+            }
+          }
+
+          Label status_count {
+            visible: false;
+            styles ["numeric"]
+          }
+        };
+      }
+    }
+
+    content: Box {
+      orientation: vertical;
+
+      Paned paned {
+        vexpand: true;
+        orientation: horizontal;
+        position: 540;
+        resize-start-child: true;
+        resize-end-child: true;
+        shrink-start-child: false;
+        shrink-end-child: false;
+
+        // Editor
+        start-child: Overlay {
+          child: ScrolledWindow {
+            width-request: 280;
+
+            child: GtkSource.View source_view {
+              show-line-numbers: true;
+              highlight-current-line: true;
+              monospace: true;
+              top-margin: 10;
+              bottom-margin: 10;
+
+              buffer: GtkSource.Buffer source_buffer {};
+            };
+          };
+
+          [overlay]
+          Label position_label {
+            halign: end;
+            valign: end;
+            margin-end: 12;
+            margin-bottom: 10;
+            label: _("Línea 1, col. 1");
+            can-target: false;
+            styles ["caption", "dim-label", "numeric"]
+          }
+        };
+
+        // Visor del PDF
+        end-child: Overlay {
+          child: Box {
+            orientation: vertical;
+
+            Adw.Banner banner {
+              title: _("La compilación falló. Se muestra la última versión correcta.");
+              button-label: _("Ver registro");
+              action-name: "win.open-log";
+              revealed: false;
+            }
+
+            ScrolledWindow pdf_scroller {
+              width-request: 280;
+              vexpand: true;
+              hexpand: true;
+
+              // Widget propio: dibuja las páginas del PDF.
+              child: $MynePdfView pdf_view {};
+            }
+          };
+
+          // Controles de zoom y de página, flotando sobre el visor.
+          [overlay]
+          Box {
+            halign: center;
+            valign: end;
+            margin-bottom: 16;
+            spacing: 4;
+            styles ["osd", "toolbar"]
+
+            Button {
+              action-name: "win.zoom-out";
+              icon-name: "zoom-out-symbolic";
+              tooltip-text: _("Alejar (Ctrl+−)");
+
+              accessibility {
+                label: _("Alejar");
+              }
+            }
+
+            Label zoom_label {
+              label: "100 %";
+              width-chars: 5;
+              styles ["numeric"]
+            }
+
+            Button {
+              action-name: "win.zoom-in";
+              icon-name: "zoom-in-symbolic";
+              tooltip-text: _("Acercar (Ctrl++)");
+
+              accessibility {
+                label: _("Acercar");
+              }
+            }
+
+            Separator {
+              orientation: vertical;
+            }
+
+            Button {
+              action-name: "win.zoom-fit";
+              icon-name: "zoom-fit-best-symbolic";
+              tooltip-text: _("Ajustar al ancho (Ctrl+0)");
+
+              accessibility {
+                label: _("Ajustar al ancho");
+              }
+            }
+
+            Separator {
+              orientation: vertical;
+            }
+
+            Button {
+              action-name: "win.prev-page";
+              icon-name: "go-previous-symbolic";
+              tooltip-text: _("Página anterior");
+
+              accessibility {
+                label: _("Página anterior");
+              }
+            }
+
+            Label page_label {
+              label: "1 / 1";
+              styles ["numeric"]
+            }
+
+            Button {
+              action-name: "win.next-page";
+              icon-name: "go-next-symbolic";
+              tooltip-text: _("Página siguiente");
+
+              accessibility {
+                label: _("Página siguiente");
+              }
+            }
+          }
+        };
+      }
+
+      // Registro de compilación: oculto por defecto.
+      Revealer log_revealer {
+        reveal-child: bind log_button.active;
+        transition-type: slide_up;
+
+        child: Box {
+          orientation: vertical;
+
+          Separator {}
+
+          Box {
+            margin-start: 14;
+            margin-end: 6;
+            margin-top: 4;
+            margin-bottom: 4;
+            spacing: 6;
+
+            Label {
+              hexpand: true;
+              halign: start;
+              label: _("Registro de compilación");
+              styles ["heading"]
+            }
+
+            Button {
+              action-name: "win.clear-log";
+              icon-name: "edit-clear-all-symbolic";
+              tooltip-text: _("Limpiar registro");
+              styles ["flat"]
+
+              accessibility {
+                label: _("Limpiar registro");
+              }
+            }
+
+            Button {
+              action-name: "win.hide-log";
+              icon-name: "go-down-symbolic";
+              tooltip-text: _("Ocultar registro (Ctrl+Mayús+L)");
+              styles ["flat"]
+
+              accessibility {
+                label: _("Ocultar registro");
+              }
+            }
+          }
+
+          Separator {}
+
+          ScrolledWindow {
+            min-content-height: 160;
+
+            // Una fila por mensaje de groff (Adw.ActionRow creada desde Rust).
+            child: ListBox log_list {
+              selection-mode: none;
+            };
+          }
+        };
+      }
+    };
+  };
+}

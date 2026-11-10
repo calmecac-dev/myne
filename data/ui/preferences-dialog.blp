@@ -1,0 +1,58 @@
+// Myne: diálogo de preferencias (se aplican al instante, sin botón de guardar).
+// Requiere libadwaita >= 1.5. Sugerencia: enlazar cada fila con GSettings.
+using Gtk 4.0;
+using Adw 1;
+
+template $MynePreferencesDialog: Adw.PreferencesDialog {
+  title: _("Preferencias");
+
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      title: _("Compilación");
+
+      Adw.SwitchRow compile_on_save {
+        title: _("Compilar al guardar");
+        subtitle: _("Ejecuta pdfmom cada vez que guardas el documento");
+      }
+
+      Adw.EntryRow command_row {
+        title: _("Comando");
+        text: "pdfmom";
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Preprocesadores");
+      description: _("Programas de groff que se aplican antes de componer el documento.");
+
+      Adw.SwitchRow tbl_row {
+        title: _("Tablas");
+        subtitle: _("tbl, opción -t");
+      }
+
+      Adw.SwitchRow eqn_row {
+        title: _("Ecuaciones");
+        subtitle: _("eqn, opción -e");
+      }
+
+      Adw.SwitchRow pic_row {
+        title: _("Imágenes y diagramas");
+        subtitle: _("pic, opción -p");
+      }
+
+      Adw.SwitchRow refer_row {
+        title: _("Bibliografía");
+        subtitle: _("refer, opción -R");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Registro");
+
+      Adw.SwitchRow show_log_on_error {
+        title: _("Mostrar al haber errores");
+        subtitle: _("Abre el registro automáticamente si la compilación falla");
+      }
+    }
+  }
+}

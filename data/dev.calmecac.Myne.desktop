@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Myne
+GenericName=Editor de groff mom
+Comment=Edita documentos groff con macros mom y ve el PDF al guardar
+Exec=myne %f
+Icon=dev.calmecac.Myne
+Terminal=false
+Categories=Office;Publishing;
+MimeType=text/troff;
+Keywords=groff;mom;troff;pdf;
+StartupNotify=true
