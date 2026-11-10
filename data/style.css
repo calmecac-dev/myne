@@ -1,0 +1,15 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+
+/* Fondo del visor, para que la hoja blanca se distinga. */
+.pdf-view {
+  background-color: alpha(currentColor, 0.06);
+}
+
+.pdf-page {
+  background-color: white;
+  box-shadow: 0 1px 3px alpha(black, 0.3);
+}
+
+.log-header {
+  padding: 6px 12px 2px 12px;
+}

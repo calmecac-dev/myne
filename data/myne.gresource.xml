@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<gresources>
+  <gresource prefix="/dev/calmecac/Myne">
+    <file preprocess="xml-stripblanks">ui/window.ui</file>
+    <file preprocess="xml-stripblanks">ui/preferences-dialog.ui</file>
+    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+    <file>style.css</file>
+    <file alias="icons/scalable/apps/dev.calmecac.Myne.svg">icons/hicolor/scalable/apps/dev.calmecac.Myne.svg</file>
+  </gresource>
+</gresources>

@@ -1,0 +1,78 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Myne: ventana de atajos de teclado (win.show-help-overlay).
+using Gtk 4.0;
+
+ShortcutsWindow help_overlay {
+  modal: true;
+
+  ShortcutsSection {
+    section-name: "shortcuts";
+
+    ShortcutsGroup {
+      title: _("Documento");
+
+      ShortcutsShortcut {
+        title: _("Abrir");
+        action-name: "win.open";
+      }
+
+      ShortcutsShortcut {
+        title: _("Guardar");
+        action-name: "win.save";
+      }
+
+      ShortcutsShortcut {
+        title: _("Guardar como");
+        action-name: "win.save-as";
+      }
+
+      ShortcutsShortcut {
+        title: _("Compilar sin guardar");
+        action-name: "win.compile";
+      }
+    }
+
+    ShortcutsGroup {
+      title: _("Vista previa");
+
+      ShortcutsShortcut {
+        title: _("Acercar");
+        action-name: "win.zoom-in";
+      }
+
+      ShortcutsShortcut {
+        title: _("Alejar");
+        action-name: "win.zoom-out";
+      }
+
+      ShortcutsShortcut {
+        title: _("Ajustar al ancho");
+        action-name: "win.zoom-fit";
+      }
+    }
+
+    ShortcutsGroup {
+      title: _("General");
+
+      ShortcutsShortcut {
+        title: _("Mostrar u ocultar el registro");
+        action-name: "win.show-log";
+      }
+
+      ShortcutsShortcut {
+        title: _("Preferencias");
+        action-name: "app.preferences";
+      }
+
+      ShortcutsShortcut {
+        title: _("Atajos de teclado");
+        action-name: "win.show-help-overlay";
+      }
+
+      ShortcutsShortcut {
+        title: _("Salir");
+        action-name: "app.quit";
+      }
+    }
+  }
+}
