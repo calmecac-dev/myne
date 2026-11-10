@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 
-/* Fondo del visor, para que la hoja blanca se distinga. */
+/* Viewer background, so the white page stands out from it. */
 .pdf-view {
   background-color: alpha(currentColor, 0.06);
 }

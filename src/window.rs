@@ -677,7 +677,7 @@ impl Window {
     }
 }
 
-/// `/home/ana/Documentos` → `~/Documentos`.
+/// `/home/ana/Documents` → `~/Documents`.
 fn tilde(path: &Path) -> String {
     let home = glib::home_dir();
     match path.strip_prefix(&home) {
